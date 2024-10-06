@@ -1,7 +1,3 @@
-
-
-
-
 const canva = document.getElementById('Mycanva');
 const ctx = canva.getContext('2d');
 ctx.closePath(); 
