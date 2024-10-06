@@ -1,0 +1,13 @@
+body{
+    background: linear-gradient(to right ,red, blue);
+    
+}
+
+#Mycanva{
+
+    position: absolute;
+    left: 0;
+    top : 0;
+    pointer-events: none;
+
+}
