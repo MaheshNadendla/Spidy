@@ -11,20 +11,42 @@ resizeCanvas();
 window.addEventListener('resize', resizeCanvas);
 
 
-function drawCircle(x,y,radius,color)
-{
-
-    ctx.moveTo(x,y);
+function drawCircle(ctx, x, y, radius,color, points=6, inset=0.5) {
     ctx.beginPath();
-    ctx.arc(x, y, radius, 0, Math.PI * 2, false);
-    ctx.fillStyle = color;
-    ctx.fill();   
-    // ctx.strokeStyle = 'black';  
-    // ctx.lineWidth = 2;        
-    // ctx.stroke();
-    ctx.closePath(); 
+    ctx.fillStyle=color;
+    ctx.moveTo(x, y - radius);
 
-}
+    for (let i = 0; i < points; i++) {
+      ctx.lineTo(
+        x + Math.cos((i * 2 * Math.PI) / points - Math.PI / 2) * radius,
+        y + Math.sin((i * 2 * Math.PI) / points - Math.PI / 2) * radius
+      );
+      ctx.lineTo(
+        x + Math.cos((i * 2 * Math.PI) / points + Math.PI / points - Math.PI / 2) * radius * inset,
+        y + Math.sin((i * 2 * Math.PI) / points + Math.PI / points - Math.PI / 2) * radius * inset
+      );
+    }
+
+    ctx.closePath();
+    ctx.fill();
+  }
+
+//   drawStar(ctx, 200, 200, 100, 6, 0.5);
+
+// function drawCircle(x,y,radius,color)
+// {
+
+//     ctx.moveTo(x,y);
+//     ctx.beginPath();
+//     ctx.arc(x, y, radius, 0, Math.PI * 2, false);
+//     ctx.fillStyle = color;
+//     ctx.fill();   
+//     // ctx.strokeStyle = 'black';  
+//     // ctx.lineWidth = 2;        
+//     // ctx.stroke();
+//     ctx.closePath(); 
+
+// }
 function getRandomColor() {
     const r = Math.floor(Math.random() * 256);  
     const g = Math.floor(Math.random() * 256);  
@@ -33,7 +55,7 @@ function getRandomColor() {
 }
 
 function getRandomSize() {
-    const arr = [4,5];
+    const arr = [5,6,7];
     return arr[Math.floor(Math.random() * arr.length)];
 }
 
@@ -60,7 +82,7 @@ function findClosestPoints(points, targetPoint, numClosest = 10) {
 function DrawCanva()
 {
     points.map((a,i)=>{
-        drawCircle(a.x,a.y,a.size,a.color);
+        drawCircle(ctx,a.x,a.y,a.size,a.color,a.size);
     })
 
 }
@@ -86,6 +108,7 @@ document.addEventListener('mousemove', (e) => {
         ctx.stroke();
         ctx.closePath();
     });
+    document.body.style=`background : linear-gradient(to right ,${getRandomColor()},${getRandomColor()},${getRandomColor()})`;
     DrawCanva();
 });
 
